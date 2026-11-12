@@ -1,0 +1,105 @@
+SIGNAL — LOOM WALKTHROUGH
+
+STATUS BEFORE RECORDING (do not read aloud)
+The local implementation is complete for the current assessment scope. All 42 automated tests and the production build pass. All three targeted live scenarios produced the expected results across runs; network connection failures required retrying the duplicate check. The real browser flow also passed: save, retry after a connection failure, analysis, evidence review, link, refresh persistence and unlink. This is a small verification set, not a broad model-quality benchmark. The user has authorized public source publication to https://github.com/walterg1010/signal; the application still runs locally.
+
+RECORDING SETUP
+- Aim for about five minutes. The time markers are pacing guides, allowing time for clicks.
+- Keep the local app, README, provider source, CLAUDE.md, a redacted section of prompts.txt, and the test summary ready in separate tabs.
+- Keep .env.local, billing screens and the chat containing the API key out of the recording.
+- Rehearse the demonstration using the actual analysis and quoted evidence that appear in the app. Model wording and duplicate/related classification may vary. Intermittent network connection failures occurred during testing; a failed analysis leaves the request saved and can be retried.
+- You can keep a previously analyzed example ready for the recording. If you show it, say that you analyzed it earlier; do not imply a cached result was just generated.
+- Add the first two sample requests before recording, then paste the third during the demo. Use the same browser address throughout.
+
+SAMPLE REQUESTS (synthetic demonstration data)
+1. Title: Schedule a weekly dashboard report
+   Description: Every Monday I copy the dashboard numbers into an email for our team. I want that same dashboard report emailed automatically each Monday morning so I do not have to send it manually.
+2. Title: Keyboard navigation for the request form
+   Description: I cannot use a mouse. I need to move through the request form and submit it using only my keyboard.
+3. Title: Stop copying dashboard numbers into Monday emails
+   Description: Before our Monday meeting, I copy the dashboard numbers into an email to the team. Please send that same dashboard report to the team automatically every Monday morning.
+
+The model may classify requests 1 and 3 as duplicate or related. Only demonstrate a link if the real output and its evidence support it. Request 2 provides an unrelated example; do not claim that the model explicitly rejected it merely because it is absent from the suggestions.
+
+NARRATION
+
+0:00–0:35 | SCREEN: Show the request board.
+
+Hi, this is Signal, a feature request tool for product and support teams.
+
+The problem I focused on is the work that happens before prioritization: reading feedback and figuring out which requests describe the same customer need.
+
+People often propose different features for the same problem. That splits the conversation across several requests and makes the demand harder to understand. Signal helps the team find those connections and review the evidence.
+
+0:35–1:15 | SCREEN: Search for an existing request, add support, then submit the prepared Monday email request.
+
+The basic flow starts here. People can submit a title and description, search existing feedback, and support a request. Those records are saved in SQLite, so they survive a refresh.
+
+For this example, there’s already a request to schedule a weekly dashboard report. I’m adding another about copying dashboard numbers into a Monday email.
+
+The request saves first, and analysis runs afterward. That means an AI timeout or billing problem doesn’t lose the customer’s feedback.
+
+1:15–2:05 | SCREEN: Use a real, verified analysis. Expand the insight and Compare the evidence; show the actual suggested connection.
+
+The analysis describes the underlying problem, assigns a theme, and points out missing information. It also suggests connections to other requests.
+
+In this example, the question is whether both requests are about the same repeated reporting work, even though the titles are different. That’s where language understanding is useful beyond a keyword search.
+
+Each suggestion includes a reason and quotes from both requests. I can compare that evidence before making a decision. The server checks that those quotes actually occur in the supplied text. That catches fabricated evidence, although it doesn’t prove the interpretation is correct.
+
+2:05–2:40 | SCREEN: Link the verified pair, show Linked by review, and demonstrate that the link can be removed.
+
+I can accept a connection, dismiss it, or remove it later. The original requests and support counts stay separate, and a new analysis won’t silently undo an accepted link.
+
+That’s the workflow change: the model prepares a reviewable interpretation, and a person makes the decision.
+
+Support is still useful, but it isn’t a roadmap score. Business value and strategic fit need context that this version doesn’t have.
+
+2:40–3:20 | SCREEN: Show the project structure and provider code. Keep .env.local closed.
+
+The application uses Next.js, React and TypeScript, with SQLite for local persistence. Keeping the interface and API in one project makes the assessment easy to run.
+
+For analysis, I used GPT-5.4 mini through the OpenAI Responses API. It’s a starting point for evaluating cost, response time and quality; I haven’t benchmarked it against other models.
+
+One structured model call fits this task. The model has no tools and can’t approve links. The application validates its output and stores analysis history separately from human decisions.
+
+3:20–3:55 | SCREEN: Show the README sections on analysis limits and tradeoffs.
+
+There are deliberate limits. Each analysis compares at most twenty recent requests, so it can miss older duplicates. A larger version would need better candidate retrieval.
+
+Support uses a browser cookie, which is convenient for a local demo but doesn’t establish a unique person. Public deployment would need authentication and permissions.
+
+The API key stays on the server. Analysis sends request text to OpenAI, so data handling would also be part of a production rollout.
+
+3:55–4:30 | SCREEN: Show CLAUDE.md, a redacted portion of prompts.txt, and the test summary.
+
+I used Codex throughout development, working through request storage, search and support, then analysis and review. The prompt log records that process.
+
+Live testing caught a formatting issue: the model added quotation marks around its evidence. The fix accepts that formatting only when the text still matches its source exactly.
+
+Forty-two automated tests and the build pass. Live checks covered duplicates, unrelated requests and instructions embedded in feedback. That small set doesn't establish general model quality.
+
+4:30–5:00 | SCREEN: Return to the linked requests on the board.
+
+To measure impact, I’d track three things: time spent reviewing each request, the share of suggestions reviewers judge correct, and how many known duplicate pairs the system finds in a labeled dataset.
+
+Those are proposed measures, not results I’ve claimed to achieve.
+
+The aim is to give the team a clearer starting point for product decisions, with the evidence visible and the final judgment still in their hands.
+
+IF A LIVE CALL FAILS WHILE RECORDING
+Say: "The request is saved, but the provider connection failed. I can retry analysis without submitting the feedback again."
+Click Retry analysis. If the connection still fails, stop and resolve it before recording the final demonstration. A previously verified real analysis can be shown as an earlier result; do not present controlled test fixtures as live model output.
+
+ASSESSMENT COVERAGE
+Business problem and beneficiaries: 0:00
+Implemented submission, discovery and support: 0:35
+Why AI and how it changes the workflow: 1:15–2:40
+Human judgment: 2:05
+Model, architecture and selection rationale: 2:40
+Assumptions, risks and tradeoffs: 3:20
+AI-assisted development process and validation: 3:55
+Three proposed success measures: 4:30
+
+Source: Technical AI Assessment
+https://docs.google.com/document/d/1KSEUaS6WcT2lA9rn8cMgbTWMxRJkMm2NzD8yfcUY-aE/edit

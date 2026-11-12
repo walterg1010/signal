@@ -1,0 +1,181 @@
+Signal development prompt log
+
+Timestamps below are UTC in ISO 8601 format. Imported entries use the time they were recorded here, not an invented original receipt time. Prompt logging was configured before application code; discussion and planning happened earlier.
+
+---
+Recorded at: 2026-11-11T22:19:19Z
+Source: Imported conversation history; original prompt timestamp unavailable.
+Prompt:
+You are a native senior software engineer.
+Help me to complete this task step by step.
+Requirement:
+
+- Do not use AI sounding words and phrases
+- Must looks like native human speaking - absolutely - human possibility is over 99%
+- Senior Level
+- Creative and Special
+- Natural
+- Match with Task requirement
+
+Response summary: Asked for the assessment and relevant materials. Agreed to use direct, natural language without promising a human-detection score.
+
+---
+Recorded at: 2026-11-11T22:19:19Z
+Source: Imported conversation history; original prompt timestamp unavailable.
+Prompt:
+[https://docs.google.com/document/d/1KSEUaS6WcT2lA9rn8cMgbTWMxRJkMm2NzD8yfcUY-aE/edit?tab=t.0#heading=h.afftq5ssn7zc](https://docs.google.com/document/d/1KSEUaS6WcT2lA9rn8cMgbTWMxRJkMm2NzD8yfcUY-aE/edit?tab=t.0#heading=h.afftq5ssn7zc)
+
+This is assessment.
+
+Response summary: Read the assessment. Proposed Signal, a feature request board with AI-assisted grouping and human review. Explained the required workflow, prompt logging, public repository, and video deliverables. No application code was written.
+
+---
+Recorded at: 2026-11-11T22:19:19Z
+Source: Current setup session; timestamp is the log recording time.
+Prompt:
+Let's do the first step. And I haven't create a project yet. The stack? which stack do you mean?
+
+Response summary: Explained that a stack means the tools for the interface, server, and database. Checked local Git, Node.js, and npm availability. Prepared the project setup and required logging files. Checked GitHub repository access in the browser, which showed a sign-in page; did not sign in or publish anything.
+
+---
+Recorded at: 2026-11-11T22:19:19Z
+Source: Current setup session; timestamp is the log recording time.
+Prompt:
+don't log in github yet and don't push the code. At first, let's complete the project on local, then after completed, we will push the code to github.
+
+Response summary: Accepted the local-only workflow and recorded it in AGENTS.md and README.md. Created the project setup files. No GitHub login, remote repository creation, or push is authorized at this stage. Local Git initialization and file verification follow this entry.
+
+Setup verification: Initialized local Git on main. Confirmed the five setup files exist, the required logging instruction matches the assessment, environment files and dependencies are ignored, and prompts.txt remains trackable. No remote is configured. No commit was made because Git author name and email are not configured. No application code or dependencies have been added. Recommended TypeScript, Next.js/React, and SQLite for the next step, after checking the official Next.js and SQLite documentation.
+
+---
+Recorded at: 2026-11-11T22:22:22Z
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+what's the next step?
+
+Response summary: Explained the next implementation milestone: set up Next.js with TypeScript, add local SQLite storage, build a title-and-description submission form and request list, and verify validation and persistence after refresh and restart. This was a planning response; no application code or dependencies were added.
+
+---
+Recorded at: 2026-11-11T22:23:37Z
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+okay, let's do the next step
+
+Response summary: Started implementing the local Next.js and TypeScript request board with SQLite storage. Planned verification covers validation, database persistence, production build, and browser submission. Results will be appended after verification.
+
+Implementation result recorded at: 2026-11-11T22:36:11Z
+Implemented Next.js/React/TypeScript form and responsive board, SQLite storage, server and client validation, error/retry/loading states, and draft preservation. Dependencies installed locally. Six tests passed, including reopening the database in a fresh process, and the production build passed TypeScript checks without build warnings. Browser QA verified empty form errors, successful submissions via localhost and 127.0.0.1, refresh persistence, expanding long descriptions, narrow-screen layout, draft retention during server outage, and recovery after restart. Compared saved records before and after the server restart; both matched exactly. Fixed a loopback origin comparison issue discovered during live HTTP checks and added a regression test. Browser sample requests live only in a separate QA database. Updated README with run instructions, verified behavior, tradeoffs and next milestones. No GitHub login, publication, remote, or push was performed. Support, search and AI analysis remain future work.
+Teardown: stopped the temporary QA server. The normal local app can be started with npm run dev and uses its own initially empty data/signal.db.
+
+---
+Recorded at: 2026-11-11T22:38:00Z
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+Okay, let's go to the next step
+
+Response summary: Started implementing title/description search and persistent request support, including duplicate protection for an anonymous browser identity. Keeping work local; verification results will follow.
+
+Implementation result recorded at: 2026-11-11T22:48:01Z
+Implemented instant case-insensitive title/description search with Unicode normalization, result counts, clear search and no-match state. Added persistent anonymous browser support using an HttpOnly SameSite cookie, a unique request/supporter database key, transactional idempotent PUT/DELETE endpoints, confirmed counts, removal and safe same-action retries. Existing request data is preserved by the additive schema update. Added a store-cache version guard for development upgrades. Fifteen tests passed, including four simultaneous processes attempting duplicate support, and the production build passed TypeScript checks. Browser QA verified description matching, no-match recovery, creation during a search, support add/remove, refresh persistence, same identity across tabs, and retry after a server outage. Inspected desktop and narrow-screen layouts and saved previews. Documented the anonymous-cookie limitations, including cookie reset, other profiles and alternate hostnames. Stopped the temporary QA server on port 3100; sample data remains isolated from the normal app database. No GitHub login or push was performed. AI analysis remains the next milestone.
+
+---
+Recorded at: 2026-11-11T22:49:33Z
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+okay, do the next step.
+
+Response summary: Started the AI analysis and human-review milestone. Checked only whether provider environment variables are configured; no keys were printed. No provider key or local env file was found. Asked which provider to use without requesting credentials in chat. Continuing provider-independent implementation and tests while waiting.
+
+---
+Recorded at: 2026-11-11T22:50:21Z
+Source: User clarification.
+Prompt:
+I don't have a key yet
+
+Response summary: Proceeding with the AI integration, persistent review workflow, and controlled provider tests. The application will explicitly report AI as not connected until a key is configured. Live model quality cannot be verified without a key; no synthetic result will be presented as live AI output.
+
+Implementation result recorded at: 2026-11-11T23:08:35.3361363+00:00
+Implemented the OpenAI Responses integration with a pinned configurable model, strict structured output, exact evidence validation, bounded candidate input, sanitized failures, deadlines and no automatic retry. Added durable analysis runs, concurrency/usage limits, recovery of expired runs, cached results and explicit reanalysis. Added reversible human review with symmetric links, recorded decisions and stale-review protection; original requests and support stay separate. The interface analyzes newly saved requests when configured and exposes manual analysis, evidence comparison, retry, accept, dismiss and unlink controls.
+Verification: all 37 automated tests passed and the production build passed. TypeScript checking passed after adding the live evaluation script. Controlled browser QA used an external test harness with explicit TEST FIXTURE labels and blocked external AI calls; it verified automatic analysis, evidence, link/unlink from either side, refresh persistence, search navigation, preserved links after reanalysis, provider-error recovery, dismissal and a 390px mobile layout without horizontal overflow. The normal unconfigured mode saved a new request and support through a reload, showed AI unavailable, disabled analysis controls and created no analysis runs. Both temporary QA servers were stopped. Browser sample data remains isolated from the normal application database.
+Prepared a blank ignored .env.local and tracked .env.example. No credential was entered or printed. The live evaluation command correctly reports missing configuration and makes no AI call. No actual model response or model quality has been verified because the user has no API key. Updated setup, architecture, limits, proposed success metrics and verification notes in README. No GitHub login, remote creation, commit, publication or push was performed.
+
+---
+Recorded at: 2026-11-11T23:38:35.7468989+00:00
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+Do the next step but I don't have API key. I can't find where it is.
+
+Response summary: Checking official OpenAI documentation for API key creation and billing setup, and confirming the existing local configuration without exposing credentials. No live API call or GitHub action is being performed.
+
+Setup guidance recorded at: 2026-11-11T23:39:22.3328866+00:00
+Verified the official API key dashboard and API billing links through OpenAI documentation. Confirmed .env.local exists, is ignored by Git, and AI remains unconfigured without displaying any secret. Added key-creation and current eligible subscription-credit links to README. Provided steps to create a project key, save it only in .env.local, and check API credits. Live checks remain pending until the user configures a key. No application code changed and no API usage, billing action or GitHub action was performed.
+
+---
+Recorded at: 2026-11-12T00:39:33.7751187+00:00
+Source: Current conversation; credential explicitly redacted.
+Prompt:
+API key is [REDACTED API KEY]. You can save instead of me.
+
+Response summary: Saved the user-authorized key only in the ignored .env.local file, preserving the existing model setting. No credential was printed or added to the prompt log. Starting the three synthetic live AI checks; results will be recorded after verification. Keeping all project work local.
+
+Verification result recorded at: 2026-11-12T00:45:09.4027460+00:00
+Saved the authorized API key in ignored .env.local; Git-visible file scan found no credential. Initial live evaluation returned HTTP 429 for all three synthetic cases, without generated results. Subsequent diagnostic attempts experienced connection resets; after granting session network access, a live check confirmed an API quota or spending-limit error. No model-quality result was obtained. No further calls were made after the confirmed account error.
+Improved provider error classification to distinguish allowlisted quota/billing failures from temporary rate limits, while retaining bounded body reads, deadlines, fixed safe messages and no automatic retries. The evaluation script now distinguishes unassessed failures from incorrect model output and stops on account configuration errors. All 39 automated tests and the production build passed. Updated README to reflect configured credentials and blocked live verification. No billing changes, GitHub login, remote creation, commit or push were performed. Recommended rotating the key shared in chat before funding the account; no rotation or revocation was performed.
+
+---
+Recorded at: 2026-11-12T01:11:24.4450287+00:00
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+Okay, I'll deposit the payment so you can use it. So it is full built? If so, could you give me the script so I can explain on the loom video? As you know, I should record the video about explaining for this.
+
+Response summary: Clarified that local implementation and automated verification are complete but live AI validation remains blocked until API account credits or limits are resolved. Preparing an assessment-aligned Loom walkthrough with honest status, screen actions, product decisions, architecture, tradeoffs and proposed metrics. No new live API calls or billing action; payment is not yet confirmed.
+
+Walkthrough preparation result recorded at: 2026-11-12T01:15:18.7525365+00:00
+Re-read the assessment through the Google Docs connector and checked its approximately five-minute video requirements against the implemented project. Created LOOM-SCRIPT.txt with a 611-word spoken walkthrough, screen cues, three synthetic demonstration requests, recording preparation, and a truthful fallback if live AI remains blocked. The script covers the selected business problem, beneficiaries, submission/search/support, evidence-based AI suggestions, human review, architecture and model rationale, tradeoffs, AI-assisted development, and three proposed success metrics. Independent factual review found no material issues. Clearly separated completed local implementation/39 tests/build from unverified live model behavior and the deferred public GitHub submission. No API call, payment, publication or push was made during this request.
+
+---
+Recorded at: 2026-11-12T01:23:41.2559732+00:00
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+Ready to test
+
+Response summary: Resuming the authorized live AI checks after the user confirmed readiness. Will verify the browser analysis and human-review flow using separate synthetic demonstration data if the provider checks succeed. Keeping credentials out of logs and all project work local.
+
+Live verification result recorded at: 2026-11-12T01:36:59.8883378+00:00
+The provider now returned real analyses. Initial live responses failed exact-evidence validation because the model added enclosing quotation marks. Fixed evidence handling to verify unchanged text first, then allow exactly one matching quote pair to be removed only when the remaining text exactly occurs in the respective input. Strengthened the prompt to describe the current customer problem and ask only unanswered questions; bumped prompt version to feature-triage-v2. Added three regression tests. All 42 automated tests and the production build passed.
+Post-fix live evaluation completed the unrelated-request and embedded-instruction cases successfully; the duplicate case initially failed to connect. A targeted rerun then returned the expected duplicate with valid evidence. All three scenarios therefore met expectations across runs, not as a single clean 3/3 evaluation command. Intermittent network connection resets remain an observed environment/provider connection issue, and no broader model-quality claim is made.
+Real browser QA used a separate synthetic database and the production build on port 3112, without a response fixture. Submission persisted through a failed AI connection; manual retry returned a real analysis identifying the weekly reporting duplicate. Reviewed exact source evidence, accepted the link, verified symmetric display and support persistence through reload, removed the link from the reverse side and accepted it again. Saved a real-result preview. Stopped the temporary QA server. Updated the Loom script, README and LIVE-VERIFICATION.txt with actual results and limits. No credentials were printed, no billing settings were changed, and no GitHub publication or push occurred.
+
+---
+Recorded at: 2026-11-12T01:43:31.3524391+00:00
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+Can you create video for this loom? I mean you should make it. The scenes should be live sites(almost) and codebases. You can write the transcript at the bottom of the scene on each scene. Please create a video
+
+Response summary: Preparing a locally rendered walkthrough video using captured app interactions and real source-code views, with timed bottom captions. Previously generated real AI analysis will be labeled accurately; credentials remain off-screen.
+
+---
+Recorded at: 2026-11-12T01:43:31.3524391+00:00
+Source: User clarification.
+Prompt:
+You don't need to make a voice.
+
+Response summary: The video will be silent, with no voiceover or generated speech. Continuing capture, caption timing, rendering and playback verification.
+
+Video completion result recorded at: 2026-11-12T02:03:06.4403813Z
+Created a five-minute silent 1920x1080 H.264 MP4 at 24 fps from 16 captured local app and exact source-code views. The video uses 45 timed bottom captions, including 90 seconds of code scenes. It identifies the displayed AI output as a saved real API analysis and distinguishes proposed metrics from measured results. Exported a matching timestamped transcript, SRT subtitles and poster. No voiceover or audio stream was added.
+Verified the entire MP4 decodes without errors, checked duration/resolution/frame rate/no audio, visually inspected representative exported frames, and confirmed all transcript and SRT captions match the final storyboard. The MP4 is 6,230,584 bytes. Stopped both temporary capture servers after capture. No new AI call, GitHub login/push, Loom upload or other publication was performed for video creation.
+
+---
+Recorded at: 2026-11-12T02:08:32.2852507Z
+Source: Current conversation; timestamp is the log recording time.
+Prompt:
+my github is https://github.com/walterg1010
+Could you push the code.
+You should use the email "waltergraig1010@gmail.com" and username "waterc1010".
+You should create repository.
+The repository is "https://github.com/walterg1010/signal"
+You should use this token to push the code - [REDACTED: GitHub personal access token]
+https://github.com/walterg1010/signal.git
+
+Response summary: The user explicitly authorized repository creation and source publication, superseding the earlier local-only instruction. Preparing a public assessment repository at walterg1010/signal with repository-local commit name waterc1010 and email waltergraig1010@gmail.com. Re-ran all 42 tests and TypeScript checking successfully, reviewed included files and ignore rules, and updated publication/setup documentation. Credentials and runtime data remain excluded. GitHub authentication, creation and push results will be recorded after verification.

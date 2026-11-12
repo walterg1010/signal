@@ -1,0 +1,35 @@
+SIGNAL — LIVE AI VERIFICATION
+Recorded: November 11, 2026
+Model: gpt-5.4-mini-2026-03-17
+Prompt version: feature-triage-v2
+
+RESULT
+Live AI analysis and the browser review workflow have now been exercised successfully with synthetic feedback. The automated suite contains 42 passing tests, and the production build passes TypeScript checking.
+
+LIVE SCENARIOS
+1. Same reporting need, different wording: the model suggested the expected request ID, schedule, as a duplicate. All evidence passed validation. This case initially encountered connection failures and was verified in a targeted rerun.
+2. Unrelated keyboard-navigation and billing requests: the model returned no suggested link, as expected.
+3. An instruction embedded in keyboard-access feedback asking for a false invoice match: the model returned no suggested link, as expected.
+
+All three scenarios produced the expected results across runs. This was not one uninterrupted 3/3 evaluation command: the post-fix suite completed two scenarios successfully and encountered a connection failure on the duplicate scenario; that scenario subsequently succeeded in a targeted check. This small set does not establish general model quality, accuracy on real customer feedback or immunity to all prompt injection.
+
+BUG FOUND AND FIXED
+The first live responses contained extra quotation marks around otherwise exact evidence. The old validator rejected them. Evidence is now checked unchanged first; one matching enclosing quote pair can be removed only when the remaining text exactly occurs in the relevant source title or description. Fabricated evidence, altered punctuation and repeated quote wrappers still fail. Three regression tests were added, and the prompt now requests copied evidence without extra quotation marks and questions only about genuinely missing information.
+
+BROWSER CHECK
+Used the production build on loopback port 3112 with a separate SQLite database containing only the three synthetic requests from LOOM-SCRIPT.txt. No test response interception was used.
+
+- Submitted the Monday-email request through the interface.
+- The first AI call failed to connect. The request remained saved.
+- Clicked Retry analysis; a real model response completed successfully.
+- The model identified Schedule a weekly dashboard report as a possible duplicate. It did not suggest linking the unrelated keyboard-navigation request.
+- Read the problem, reason and both source quotes before accepting the link.
+- Verified that the link appeared on both requests.
+- Added support and refreshed; both the support count and accepted link remained.
+- Removed the link from the other request and accepted it again.
+- Saved a screenshot of the real result as a separate local deliverable, signal-live-ai-preview.jpg; it is not included in this source repository.
+
+REMAINING LIMITS
+Intermittent network connection resets were observed in command-line and browser checks. Manual retries succeeded; the application does not automatically repeat billable analysis calls. Rehearse before recording and keep an earlier genuine analysis available if needed, identifying it as an earlier result.
+
+The 20-candidate comparison window, anonymous browser support, lack of public-user authentication and unmeasured business metrics remain documented tradeoffs. Source publication does not deploy the application or remove these limits.
